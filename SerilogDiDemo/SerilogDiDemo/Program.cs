@@ -12,6 +12,7 @@ builder.Services.AddSerilog(config => {
     config.ReadFrom.Configuration(builder.Configuration);
 });
 
+builder.Services.AddTransient<MyService>();
 // 3. Build the host (the DI container is now ready)
 using IHost host = builder.Build();
 
@@ -29,6 +30,12 @@ using (var scope = host.Services.CreateScope())
     logger.LogError("This is error - something exploded (simulated).");
     logger.LogDebug("This is debug - you won't see this because MinimumLevel in appsettings is set to Information.");
 }
-
-
 //Check the bin/Debug/net10.0/logs folder for the file!
+Console.WriteLine("\n--- TASK 5: Logging from a DI Class ---");
+
+using (var scope = host.Services.CreateScope())
+{
+    var myService = scope.ServiceProvider.GetRequiredService<MyService>();
+
+    myService.DoWork();
+}
