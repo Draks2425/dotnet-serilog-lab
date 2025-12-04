@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Extensions.Logging;
-
 namespace SerilogDiDemo;
 
 public class SomeLogic : ISomeLogic
